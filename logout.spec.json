@@ -10,7 +10,7 @@
       "durationSeconds": 2,
       "iterationsPerVu": 10,
       "thinkTimeMinMs": 100,
-      "thinkTimeMaxMs": 200,
+      "thinkTimeMaxMs": 500,
       "customStages": [],
       "failOnAssertionErrors": false,
       "rateLimitEnabled": false,
