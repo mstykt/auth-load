@@ -1,0 +1,250 @@
+{
+  "fileId": "R0eP6evJ0HzOb50xgNIGyyK9FuvOK9IB93hAeMM6TkqFQzdu8L1svGx20vsQ1Ykfq++hQcZCosIkAZZINk+v2+Wh4OY2iWtq3tU8EYwiq/MYU/Xu0MgfQWm9cBQD+ucI",
+  "name": "logout",
+  "configs": {
+    "load": {
+      "virtualUsers": 3,
+      "rampUpSeconds": 1,
+      "rampDownSeconds": 1,
+      "durationMode": "duration",
+      "durationSeconds": 2,
+      "iterationsPerVu": 10,
+      "thinkTimeMinMs": 100,
+      "thinkTimeMaxMs": 200,
+      "customStages": [],
+      "failOnAssertionErrors": false,
+      "rateLimitEnabled": false,
+      "rateLimitPerSecond": 100.0,
+      "timeoutSeconds": 30,
+      "otelEnabled": false,
+      "otelCollectorUrl": ""
+    },
+    "stress": {
+      "virtualUsers": 200,
+      "rampUpSeconds": 10,
+      "rampDownSeconds": 10,
+      "durationMode": "duration",
+      "durationSeconds": 60,
+      "iterationsPerVu": 10,
+      "thinkTimeMinMs": 500,
+      "thinkTimeMaxMs": 2000,
+      "customStages": [],
+      "failOnAssertionErrors": false,
+      "rateLimitEnabled": false,
+      "rateLimitPerSecond": 100.0,
+      "timeoutSeconds": 30,
+      "otelEnabled": false,
+      "otelCollectorUrl": ""
+    },
+    "spike": {
+      "virtualUsers": 300,
+      "rampUpSeconds": 2,
+      "rampDownSeconds": 2,
+      "durationMode": "duration",
+      "durationSeconds": 30,
+      "iterationsPerVu": 10,
+      "thinkTimeMinMs": 500,
+      "thinkTimeMaxMs": 1000,
+      "customStages": [],
+      "failOnAssertionErrors": false,
+      "rateLimitEnabled": false,
+      "rateLimitPerSecond": 100.0,
+      "timeoutSeconds": 30,
+      "otelEnabled": false,
+      "otelCollectorUrl": ""
+    },
+    "soak": {
+      "virtualUsers": 30,
+      "rampUpSeconds": 30,
+      "rampDownSeconds": 30,
+      "durationMode": "duration",
+      "durationSeconds": 300,
+      "iterationsPerVu": 10,
+      "thinkTimeMinMs": 2000,
+      "thinkTimeMaxMs": 5000,
+      "customStages": [],
+      "failOnAssertionErrors": false,
+      "rateLimitEnabled": false,
+      "rateLimitPerSecond": 100.0,
+      "timeoutSeconds": 30,
+      "otelEnabled": false,
+      "otelCollectorUrl": ""
+    },
+    "custom": {
+      "virtualUsers": 50,
+      "rampUpSeconds": 30,
+      "rampDownSeconds": 30,
+      "durationMode": "duration",
+      "durationSeconds": 60,
+      "iterationsPerVu": 10,
+      "thinkTimeMinMs": 1000,
+      "thinkTimeMaxMs": 5000,
+      "customStages": [],
+      "failOnAssertionErrors": false,
+      "rateLimitEnabled": false,
+      "rateLimitPerSecond": 100.0,
+      "timeoutSeconds": 30,
+      "otelEnabled": false,
+      "otelCollectorUrl": ""
+    }
+  },
+  "steps": [
+    {
+      "id": "fbbf0466-c4c6-490e-88ac-697d21fa77a7",
+      "name": "Login",
+      "method": "POST",
+      "url": "{{base_url}}/login",
+      "bodyType": "json",
+      "requestBody": "{\n  \"username\":\"{{flow.username}}\",\n  \"password\":\"{{flow.password}}\"\n}",
+      "headers": [],
+      "defaultHeaders": [],
+      "params": [],
+      "vars": [],
+      "formData": [],
+      "urlencodedData": [],
+      "binaryFilePath": null,
+      "binaryFileName": null,
+      "auth": {
+        "type": "none"
+      },
+      "assertions": [
+        {
+          "id": "6929a46e-45d0-4e09-a9ff-deac461eaf3e",
+          "enabled": true,
+          "type": "status",
+          "operator": "equals",
+          "expected": 200
+        }
+      ],
+      "assertionsEnabled": true,
+      "preScript": null,
+      "postScript": "var body = at.response.json();\nat.flow.set(\"token\", body.token);",
+      "extractions": [],
+      "enabled": true,
+      "sortOrder": 0
+    },
+    {
+      "id": "1552a1ba-aad4-4cfc-be18-dad57b848add",
+      "name": "Validate",
+      "method": "GET",
+      "url": "{{base_url}}/validate",
+      "bodyType": "none",
+      "requestBody": null,
+      "headers": [],
+      "defaultHeaders": [],
+      "params": [],
+      "vars": [],
+      "formData": [],
+      "urlencodedData": [],
+      "binaryFilePath": null,
+      "binaryFileName": null,
+      "auth": {
+        "type": "bearer",
+        "bearer": {
+          "token": "{{flow.token}}"
+        }
+      },
+      "assertions": [
+        {
+          "id": "128989fa-fec1-407a-9fa6-5d7a87d1397f",
+          "enabled": true,
+          "type": "status",
+          "operator": "equals",
+          "expected": 200
+        }
+      ],
+      "assertionsEnabled": true,
+      "preScript": null,
+      "postScript": null,
+      "extractions": [],
+      "enabled": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "edaae8cd-7ecf-4eb2-875a-c828dd6977a1",
+      "name": "Get User",
+      "method": "GET",
+      "url": "{{base_url}}/users/{{flow.username}}",
+      "bodyType": "none",
+      "requestBody": null,
+      "headers": [],
+      "defaultHeaders": [],
+      "params": [],
+      "vars": [],
+      "formData": [],
+      "urlencodedData": [],
+      "binaryFilePath": null,
+      "binaryFileName": null,
+      "auth": {
+        "type": "bearer",
+        "bearer": {
+          "token": "{{flow.token}}"
+        }
+      },
+      "assertions": [
+        {
+          "id": "77b6c490-9b91-40f6-94af-57e7b5a16d1b",
+          "enabled": true,
+          "type": "status",
+          "operator": "equals",
+          "expected": 200
+        },
+        {
+          "id": "e0af4e06-bb0d-4c26-93f0-3ab94966f5d4",
+          "enabled": true,
+          "type": "json_path",
+          "operator": "equals",
+          "expected": "{{flow.username}}",
+          "property": "$.username"
+        }
+      ],
+      "assertionsEnabled": true,
+      "preScript": null,
+      "postScript": null,
+      "extractions": [],
+      "enabled": true,
+      "sortOrder": 2
+    },
+    {
+      "id": "ad0fb768-db94-4f6e-80e0-a7f070a9899f",
+      "name": "Logout",
+      "method": "POST",
+      "url": "{{base_url}}/logout",
+      "bodyType": "none",
+      "requestBody": null,
+      "headers": [],
+      "defaultHeaders": [],
+      "params": [],
+      "vars": [],
+      "formData": [],
+      "urlencodedData": [],
+      "binaryFilePath": null,
+      "binaryFileName": null,
+      "auth": {
+        "type": "bearer",
+        "bearer": {
+          "token": "{{flow.token}}"
+        }
+      },
+      "assertions": [
+        {
+          "id": "ab254157-84e7-41e7-9572-9833d683d501",
+          "enabled": true,
+          "type": "status",
+          "operator": "equals",
+          "expected": 200
+        }
+      ],
+      "assertionsEnabled": true,
+      "preScript": null,
+      "postScript": null,
+      "extractions": [],
+      "enabled": true,
+      "sortOrder": 3
+    }
+  ],
+  "thresholds": [],
+  "beforeAllScript": "var username = \"{{random.string}}\";\nvar password = \"{{random.string}}\";\nvar name = at.environment.get(\"name\");\nvar surname = \"{{random.lastName}}\";\nvar age = \"{{random.number(25,40)}}\";\nvar location = \"{{random.city}}\";\n\nvar res = await fetch(at.environment.get(\"base_url\") + \"/register\", {\n  method: \"POST\",\n  headers: { \"Content-Type\": \"application/json\" },\n  body: JSON.stringify({ username, password, name, surname, age, location }),\n});\n\nat.flow.set(\"username\", username);\nat.flow.set(\"password\", password);",
+  "afterAllScript": null,
+  "createdAt": 1785278879459
+}

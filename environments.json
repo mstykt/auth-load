@@ -1,0 +1,22 @@
+[
+  {
+    "id": "8fa1a323-0978-473a-a0d7-78b6ecb88100",
+    "name": "dev",
+    "variables": [
+      {
+        "key": "base_url",
+        "value": "https://column-groundwater-bee-modular.trycloudflare.com",
+        "enabled": true,
+        "secret": false,
+        "source": "manual"
+      },
+      {
+        "key": "name",
+        "value": "aaaaa",
+        "enabled": true,
+        "secret": false,
+        "source": "manual"
+      }
+    ]
+  }
+]
