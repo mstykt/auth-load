@@ -5,10 +5,10 @@
     "variables": [
       {
         "key": "base_url",
-        "value": "https://come-coordination-microwave-taxi.trycloudflare.com",
+        "value": "",
         "enabled": true,
-        "secret": false,
-        "source": "manual"
+        "secret": true,
+        "source": "os"
       },
       {
         "key": "name",
