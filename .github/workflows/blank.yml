@@ -27,6 +27,8 @@ jobs:
 
       - name: Atrahasis Action Test
         uses: atrahasisdev/atrahasis-action-test@v1.0.0
+        env:
+          base_url: ${{ secrets.BASE_URL }}
         with:
     # Arguments passed verbatim to the atra CLI. Examples: 'GET https://api.example.com -a "status eq 200"', 'run auth-flows -f logout-flow -p 2 -c', 'run user-specs -t stress'.
           args: run -s logout -e dev
