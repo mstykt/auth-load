@@ -4,10 +4,10 @@
   "configs": {
     "load": {
       "virtualUsers": 3,
-      "rampUpSeconds": 1,
-      "rampDownSeconds": 1,
+      "rampUpSeconds": 2,
+      "rampDownSeconds": 2,
       "durationMode": "duration",
-      "durationSeconds": 2,
+      "durationSeconds": 4,
       "iterationsPerVu": 10,
       "thinkTimeMinMs": 100,
       "thinkTimeMaxMs": 500,
